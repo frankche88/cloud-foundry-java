@@ -1,0 +1,9 @@
+---
+defaults: &defaults
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  memory: 256M
+applications:
+- name: cloud-foundry-java
+  path: build/libs/cloud-foundry-java.jar
+  <<: *defaults
+  command: echo "Starting banking-dropwizard." && $PWD/.java-buildpack/open_jdk_jre/bin/java -cp $PWD/*:. $JAVA_OPTS -Djava.io.tmpdir=$TMPDIR banking.BankingApplication server $PWD/java-app.yml
